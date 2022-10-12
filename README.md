@@ -85,12 +85,16 @@
 ```mermaid
 classDiagram
   class Pen{
-    - String brand
-    - String name
-    - PenType type
-    - double price
-    - bool isRefilable
-    - Refill refill
+    -String brand
+    -String name
+    -PenType type
+    -double price
+    -bool isRefilable
+    -Refill refill
+    -Ink ink
+    -Nib nib
+    +write() void
+    +cgangeRefill(Refill) void
   }
   class PenType{
     <<enumeration>>
@@ -107,12 +111,33 @@ classDiagram
   }
   class RefillType{
     <<enumeration>>
-    
+    GEL
+    BALL
+  }
+  class Nib{
+    -double radius
+  }
+  class Ink{
+    -String color
+    -String brand
+    -InkType type
+  }
+  class InkType{
+    <<enumeration>>
+    GEL
+    BALL
+    FOUNTAIN
   }
   
   Pen "*" --o "1" PenType
-  Pen "1" --* "1" RefillType
-  Refill  --* Ink
+  Pen "1" --* "1" Refill
+  Pen "1" --* "1" Nib
+  Pen "1" --* "1" Ink
+
+  Refill "*" --o "1" RefillType
+  Refill  "1" --* "1" Ink
+  Refill "1" --* "1" Nib
+  Ink "*" --o "1" InkType
 ```
 
 ## Improvements
